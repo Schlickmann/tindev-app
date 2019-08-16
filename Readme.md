@@ -1,3 +1,3 @@
-# TinDev Web Application
+# TinDev Mobile Application
 
 ![](tindev.gif)
