@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import io from 'socket.io-client';
 import AsyncStorage from '@react-native-community/async-storage';
 import { TouchableOpacity } from "react-native";
 import api from "../../services/api";
@@ -16,12 +17,19 @@ import {
   Button,
   Like,
   Dislike,
-  Empty
+  Empty,
+  MatchContainer,
+  ItsAMatch,
+  AvatarMatch,
+  NameMatch,
+  BioMatch,
+  CloseButton
 } from './styles';
 
 export default function Main({ navigation }) {
   const id = navigation.getParam("user");
   const [developers, setDevelopers] = useState([]);
+  const [matchDev, setMatchDev] = useState(null);
 
   useEffect(() => {
     async function loadDevelopers() {
@@ -35,6 +43,16 @@ export default function Main({ navigation }) {
     }
 
     loadDevelopers();
+  }, [id]);
+
+  useEffect(() => {
+    const socket = io("http://localhost:3333", {
+      query: { developer: id }
+    });
+
+    socket.on("match", developer => {
+      setMatchDev(developer);
+    });
   }, [id]);
 
   async function handleLike() {
@@ -105,6 +123,19 @@ export default function Main({ navigation }) {
             <Like />
           </Button>
         </ButtonsContainer>
+      )}
+
+      {matchDev && (
+        <MatchContainer>
+          <ItsAMatch />
+          <AvatarMatch source={{ uri: matchDev.avatar }} />
+          <NameMatch>{matchDev.name}</NameMatch>
+          <BioMatch>{matchDev.bio}</BioMatch>
+
+          <TouchableOpacity type="button" onPress={() => setMatchDev(null)}>
+            <CloseButton>CLOSE</CloseButton>
+          </TouchableOpacity>
+        </MatchContainer>
       )}
     </Container>
   );

@@ -2,6 +2,7 @@ import styled from "styled-components/native";
 import logo from "../../assets/logo.png";
 import like from "../../assets/like.png";
 import dislike from "../../assets/dislike.png";
+import itsamatch from "../../assets/itsamatch.png";
 
 export const Container = styled.SafeAreaView`
   flex: 1;
@@ -95,4 +96,56 @@ export const Empty = styled.Text`
   color: #999;
   font-size: 24px;
   font-weight: bold;
+`;
+
+
+export const MatchContainer = styled.View`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;  
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+`;
+
+export const ItsAMatch = styled.Image.attrs({
+  source: itsamatch,
+  resizeMode: 'contain'
+})`
+  height: 60px;
+`;
+
+export const AvatarMatch = styled.Image`
+  width: 160px;
+  height: 160px;
+  border-radius: 80px;
+  border-width: 5px;
+  border-color: #fff;
+  margin: 30px 0;
+`;
+
+export const NameMatch = styled.Text`
+  font-size: 26px;
+  color: #fff;
+  font-weight: bold;
+`;
+
+export const BioMatch = styled.Text`
+  margin-top: 10px;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  padding: 0 30px;
+  color: rgba(255, 255, 255, 0.8);
+`;
+
+export const CloseButton = styled.Text`
+  border: 0;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 16px;
+  margin-top: 30px;
+  text-align: center;
 `;
